@@ -3,6 +3,6 @@
     <%= team.name%>
     <%= link_to "Show", show_team_path(team) %>
     <%= link_to "Edit", edit_team_path(team) %>
-    <%= link_to "Delete", delete_team_path(team), method: :delete %>
+    <%= link_to "Delete", delete_team_path(team, :user_id => current_user.id), method: :delete %>
   </span>
 </li>

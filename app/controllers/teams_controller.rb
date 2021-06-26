@@ -36,8 +36,25 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    current_user.teams.find(params[:id]).destroy
-    redirect_to profile_path
+    @user = User.find(params[:user_id])
+    @team = @user.teams.find(params[:id])
+    @team.users.delete(@user)
+    if @user == current_user
+      redirect_to profile_path
+    else
+      show_team_path(@team)
+    end
+  end
+
+  def search
+    q = params[:email]
+    i = params[:team_id]
+    @user = User.find_by_email(q)
+    @team = Team.find(i)
+    if !@user.nil?
+      @team.users << @user
+    end
+    redirect_to show_team_path(@team)
   end
 
   private
