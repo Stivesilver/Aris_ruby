@@ -1,0 +1,12 @@
+<h2>Users on team <%= @team.name %></h2>
+<div class="col-md-8">
+  <% if @users.any? %>
+    <h3>Users (<%= @users.count %>)</h3>
+    <ol class="users">
+      <%= render @users %>
+    </ol>
+  <% end %>
+</div>
+<div>
+  <%= %>
+</div>

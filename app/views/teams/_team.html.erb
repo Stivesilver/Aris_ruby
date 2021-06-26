@@ -1,0 +1,8 @@
+<li id="teams-<%= team.id %>">
+  <span class="name">
+    <%= team.name%>
+    <%= link_to "Show", show_team_path(team) %>
+    <%= link_to "Edit", edit_team_path(team) %>
+    <%= link_to "Delete", delete_team_path(team), method: :delete %>
+  </span>
+</li>

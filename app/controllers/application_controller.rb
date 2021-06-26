@@ -1,8 +1,32 @@
 class ApplicationController < ActionController::Base
-  def after_sign_in_path_for(resource)
-    current_user_path
+  protect_from_forgery with: :exception
+  # include SessionsHelper
+
+  before_action :configure_devise_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_devise_permitted_parameters
+    registration_params = [:first_name, :last_name, :email, :password, :password_confirmation]
+
+    if params[:action] == 'update'
+      devise_parameter_sanitizer.for(:account_update) do
+      |u| u.permit(registration_params << :current_password)
+      end
+    elsif params[:action] == 'create'
+      devise_parameter_sanitizer.permit(:sign_up) do
+      |u| u.permit(registration_params)
+      end
+    end
   end
-  def after_sign_out_path_for(resource_or_scope)
-    request.referrer
+
+  private
+
+  def logged_in_user
+    unless user_signed_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
   end
 end

@@ -1,0 +1,12 @@
+<h2>Update team</h2>
+
+<%= form_for :team, method: :patch, :url => {:action => "update", :id => @team} do |f| %>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "new name" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
