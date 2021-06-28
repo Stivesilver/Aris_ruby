@@ -1,0 +1,24 @@
+<h2>Task <% @task.id %></h2>
+<div>
+  <h3>Content:</h3>
+  <%= @task.content %>
+</div>
+<div>
+  <div class="col-md-8">
+    <% if @task.users.any? %>
+      <h3>Users (<%= @task.users.count %>)</h3>
+      <ol class="users">
+        <%= render @users %>
+      </ol>
+    <% end %>
+  </div>
+  <div>
+    <%= form_tag(search_task_path, method: "get") do %>
+      <%= label_tag(:email, "Add user by email:") %>
+      <%= text_field_tag(:email) %>
+      <%= hidden_field_tag :task_id, @task.id %>
+      <%= hidden_field_tag :project_id, @project.id %>
+      <%= submit_tag("Search") %>
+    <% end %>
+  </div>
+</div>

@@ -3,6 +3,11 @@
     <%= team.name%>
     <%= link_to "Show", show_team_path(team) %>
     <%= link_to "Edit", edit_team_path(team) %>
-    <%= link_to "Delete", delete_team_path(team, :user_id => current_user.id), method: :delete %>
+    <% if !@project.blank? %>
+      <% @pr_id = @project.id%>
+      <% else %>
+      <% @pr_id = ""%>
+    <% end %>
+    <%= link_to "Delete", delete_team_path(team, :user_id => current_user.id, :project_id => @pr_id ), method: :delete %>
   </span>
 </li>

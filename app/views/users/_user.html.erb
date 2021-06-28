@@ -1,6 +1,10 @@
 <li id="users-<%= user.id %>">
   <span class="name">
     <%= "#{ user.first_name } #{user.last_name}"%>
-    <%= link_to "Delete", delete_team_path(@team, :user_id => user.id), method: :delete %>
+    <% if !@task.blank? %>
+       <%= link_to "Delete", delete_task_path(@task, :user_id => user.id, :form => 'users', :project_id => @project.id), method: :delete %>
+      <% else %>
+        <%= link_to "Delete", delete_team_path(@team, :user_id => user.id), method: :delete %>
+    <% end %>
   </span>
 </li>

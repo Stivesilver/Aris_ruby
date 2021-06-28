@@ -7,6 +7,7 @@
       </h1>
     </section>
   </aside>
+
   <div class="col-md-8">
     <% if @user.teams.any? %>
       <h3>Teams (<%= @user.teams.count %>)</h3>
@@ -16,5 +17,6 @@
     <% end %>
   </div>
   <%= link_to 'Create team', new_team_path %>
+
 </div>
 

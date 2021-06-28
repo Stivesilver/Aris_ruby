@@ -1,0 +1,8 @@
+<li id="tasks-<%= task.id %>">
+  <span class="name">
+    <%= task.name%>
+    <%= link_to "Show", show_task_path(task, :project_id => @project.id) %>
+    <%= link_to "Edit", edit_task_path(task, :project_id => @project.id) %>
+    <%= link_to "Delete", delete_task_path(task, :project_id => @project.id), method: :delete %>
+  </span>
+</li>

@@ -1,0 +1,30 @@
+<h2>Teams in project<%= @project.name %></h2>
+<div class="col-md-8">
+  <% if @teams.any? %>
+    <h3>Teams (<%= @teams.count %>)</h3>
+    <ol class="teams">
+      <%= render @teams %>
+    </ol>
+  <% end %>
+</div>
+
+<div>
+  <%= form_tag(search_team_path, method: "get") do %>
+    <%= label_tag(:name, "Add team by name:") %>
+    <%= text_field_tag(:name) %>
+    <%= hidden_field_tag :project_id, @project.id %>
+    <%= submit_tag("Search") %>
+  <% end %>
+</div>
+
+<div class="col-md-8">
+  <% if @tasks.any? %>
+    <h3>Tasks (<%= @tasks.count %>)</h3>
+    <ol class="tasks">
+      <%= render @tasks %>
+    </ol>
+  <% end %>
+</div>
+
+<%= link_to 'Create task', new_task_path(:project_id => @project.id) %>
+

@@ -20,8 +20,9 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team = current_user.teams.find(params[:id])
+    @team = Team.find(params[:id])
     @users = @team.users
+    @projects = @team.projects
   end
 
   def create
@@ -36,13 +37,21 @@ class TeamsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
-    @team = @user.teams.find(params[:id])
-    @team.users.delete(@user)
-    if @user == current_user
-      redirect_to profile_path
+    @from = params[:from]
+    if @from == 'user'
+      @user = User.find(params[:user_id])
+      @team = @user.teams.find(params[:id])
+      @team.users.delete(@user)
+      if @user == current_user
+        redirect_to profile_path
+      else
+        show_team_path(@team)
+      end
     else
-      show_team_path(@team)
+      @project = Project.find(params[:project_id])
+      @team = @project.teams.find(params[:id])
+      @team.projects.delete(@project)
+      redirect_to show_project_path(@project)
     end
   end
 
