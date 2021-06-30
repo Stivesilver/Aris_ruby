@@ -1,12 +1,42 @@
-<h2>Create team</h2>
+<!doctype html>
+<html>
+  <body>
+  <header class="header d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-light">
+    <%= link_to('TProj', home_path, {:class => "d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}) %>
 
-<%= form_for(@team) do |f| %>
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><%= link_to('Home', home_path, {:class => "nav-link px-2 link-dark"})%></li>
+      <li><%= link_to('Profile', profile_path, {:class => "nav-link px-2  link-dark"}) %></li>
+      <li><%= link_to('About', about_path, {:class => "nav-link px-2 link-dark"}) %></li>
+    </ul>
 
-  <div class="actions">
-    <%= f.submit "Create" %>
-  </div>
-<% end %>
+    <div class="col-md-3 text-end ">
+      <% if !user_signed_in? %>
+        <div class="float-end px-2">
+          <%= button_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
+        </div>
+        <%= button_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
+      <% else %>
+        <span>Hello, <%= current_user.first_name %></span>
+        <div class="float-end px-4">
+          <%= button_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
+        </div>
+      <% end %>
+    </div>
+  </header>
+
+    <div class="container" >
+      <%= form_for(@team) do |f| %>
+        <h1 class="h3 mb-3 fw-normal">Create team</h1>
+        <div class="form-floating">
+          <%= f.text_field(:name, {:class => "form-control", :id => "floatingInputName"}) %>
+          <label for="floatingInputName">Name</label>
+        </div>
+
+        <div class="form-floating">
+          <%= f.submit("Create", { :class => "w-100 btn btn-lg btn-primary"}) %>
+        </div>
+      <% end %>
+    </div>
+  </body>
+</html>

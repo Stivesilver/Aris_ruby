@@ -1,8 +1,58 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<% if user_signed_in? %>
-  <span>Здравствуйте, <%= current_user.email %></span>
-  <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
-<% else %>
-  <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
-<% end %>
+<!doctype html>
+<html>
+
+  <body class="d-flex flex-column h-100">
+    <header class="header d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-light">
+      <%= link_to('TProj', home_path, {:class => "d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}) %>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><%= link_to('Home', home_path, {:class => "nav-link px-2 link-secondary"})%></li>
+        <li>
+          <% if user_signed_in? %>
+          <%= link_to('Profile', profile_path, {:class => "nav-link px-2 link-dark"}) %>
+            <% else %>
+            <%= link_to('Profile', new_user_registration_path, {:class => "nav-link px-2 link-dark"}) %>
+            <% end %>
+            </li>
+        <li><%= link_to('About', about_path, {:class => "nav-link px-2 link-dark"}) %></li>
+      </ul>
+
+      <div class="col-md-3 text-end ">
+        <% if !user_signed_in? %>
+          <div class="float-end px-2">
+            <%= button_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
+          </div>
+          <%= button_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
+        <% else %>
+          <span>Hello, <%= current_user.first_name %></span>
+          <div class="float-end px-4">
+            <%= button_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
+          </div>
+        <% end %>
+      </div>
+    </header>
+    <main class="flex-shrink-0">
+    <div class="container px-4 py-5" id="featured-3">
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="feature col">
+          <h2>This site</h2>
+          <p>is for creating task scheduling. Get together in teams with other users. Create projects and tasks for them. Distribute all tasks between users.</p>
+        </div>
+        <div class="feature col">
+          <h2>Each user</h2>
+          <p> can create their own team and project. You can add as many groups as you like to the project, create, delete and edit tasks.</p>
+        </div>
+        <div class="feature col">
+          <h2>To get started,</h2>
+          <p> go to your profile page and create your first team.</p>
+          <% if user_signed_in? %>
+          <%= link_to('To profile', profile_path, { :class => 'icon-link'}) %>
+          <% else %>
+            <%= link_to('To profile', new_user_registration_path, { :class => 'icon-link'}) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    </main>
+  </body>
+</html>

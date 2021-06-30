@@ -1,28 +1,106 @@
-<h2>Users on team <%= @team.name %></h2>
-<div class="col-md-8">
-  <% if @users.any? %>
-    <h3>Users (<%= @users.count %>)</h3>
-    <ol class="users">
-      <%= render @users %>
-    </ol>
-  <% end %>
-</div>
-<div>
-<%= form_tag("/search", method: "get") do %>
-  <%= label_tag(:email, "Add user by email:") %>
-  <%= text_field_tag(:email) %>
-  <%= hidden_field_tag :team_id, @team.id %>
-  <%= submit_tag("Search") %>
-<% end %>
+<!doctype html>
+<html>
+<head>
+  <style>
+      /* CSS */
+      .list-counter-square {
+          list-style: none;
+          counter-reset: list;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          width: max-content;
+      }
+      .list-counter-square>li {
+          position: relative;
+          display: block;
+          height: 2rem;
+          line-height: 2rem;
+          margin-left: 2rem;
+          margin-bottom: .25rem;
+          padding-left: .5rem;
+          padding-right: .5rem;
+          color: #fff;
+          background: #6a89fb;
+          white-space: nowrap;
+      }
+      .list-counter-square>li:last-child {
+          margin-bottom: 0;
+      }
+      .list-counter-square>li::before {
+          content: counter(list);
+          counter-increment: list;
+          position: absolute;
+          left: -2rem;
+          top: 0;
+          bottom: 0;
+          width: 2rem;
+          line-height: 2rem;
+          text-align: center;
+          color: #fff;
+          background: #9cb0fc;
+      }
+  </style>
+</head>
+<body>
+<header class="header d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-light">
+  <%= link_to('TProj', home_path, {:class => "d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}) %>
 
-  <div class="col-md-8">
-    <% if @team.projects.any? %>
-      <h3>Projects (<%= @team.projects.count %>)</h3>
-      <ol class="projects">
-        <%= render @projects %>
-      </ol>
+  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <li><%= link_to('Home', home_path, {:class => "nav-link px-2 link-dark"})%></li>
+    <li><%= link_to('Profile', profile_path, {:class => "nav-link px-2  link-dark"}) %></li>
+    <li><%= link_to('About', about_path, {:class => "nav-link px-2 link-dark"}) %></li>
+  </ul>
+
+  <div class="col-md-3 text-end ">
+    <% if !user_signed_in? %>
+      <div class="float-end px-2">
+        <%= button_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
+      </div>
+      <%= button_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
+    <% else %>
+      <span>Hello, <%= current_user.first_name %></span>
+      <div class="float-end px-4">
+        <%= button_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
+      </div>
     <% end %>
   </div>
-  <%= link_to 'Create project', new_project_path(:team_id => @team.id) %>
-
-</div>
+</header>
+  <main class="flex-shrink-0">
+    <div class="container px-4 py-5" id="featured-3">
+      <h2>Team: <%= @team.name %></h2>
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+        <div class="feature col">
+          <div>
+            <% if @users.any? %>
+              <h3>Users (<%= @users.count %>)</h3>
+              <ol class="list-counter-square">
+                <%= render @users %>
+              </ol>
+            <% end %>
+          </div>
+          <div>
+            <%= form_tag("/search", method: "get") do %>
+              <%= label_tag(:email, "Add user by email:") %>
+              <%= text_field_tag(:email) %>
+              <%= hidden_field_tag :team_id, @team.id %>
+              <%= submit_tag("Search") %>
+            <% end %>
+          </div>
+        </div>
+        <div class="feature col">
+          <div>
+            <% if @team.projects.any? %>
+              <h3>Projects (<%= @team.projects.count %>)</h3>
+              <ol class="list-counter-square">
+                <%= render @projects %>
+              </ol>
+            <% end %>
+          </div>
+          <%= link_to('Create project', new_project_path(:team_id => @team.id), {:class => 'btn btn-outline-primary me-2', method: :get}) %>
+      </div>
+      </div>
+      </div>
+  </main>
+</body>
+</html>

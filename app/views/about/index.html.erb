@@ -24,31 +24,8 @@
         <% end %>
       </div>
     </header>
-
     <div class="container">
-      <%= form_for :project, method: :patch, :url => {:action => "update", :id => @project} do |f| %>
-        <h1 class="h3 mb-3 fw-normal">Update project</h1>
-        <div class="form-floating">
-          <%= f.text_field(:name, {:class => "form-control", :id => "floatingInputName"}) %>
-          <label for="floatingInputName">Name</label>
-        </div>
-        <div class="form-floating">
-          <%= f.text_field(:summary, {:class => "form-control", :id => "floatingInputSummary"}) %>
-          <label for="floatingInputSummary">Summary</label>
-        </div>
-        <div class="form-floating">
-          <%= f.date_select(:start_date, {:class => "form-control"}) %>
-        </div>
-        <div class="form-floating">
-          <%= f.date_select(:end_date, {:class => "form-control"}) %>
-        </div>
-        <%= hidden_field_tag :team_id, params[:team_id] %>
-
-        <div class="form-floating">
-          <%= f.submit("Update", { :class => "w-100 btn btn-lg btn-primary"}) %>
-        </div>
-        </div>
-      <% end %>
+      <p>This project was made for internship at BSUIR</p>
     </div>
   </body>
 </html>

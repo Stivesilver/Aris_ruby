@@ -1,22 +1,93 @@
-<% provide(:title, "#{@user.first_name} #{@user.last_name}") %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= "#{@user.first_name} #{@user.last_name}" %>
-      </h1>
-    </section>
-  </aside>
+<!doctype html>
+<html>
+<head>
+  <style>
+      /* CSS */
+      .list-counter-square {
+          list-style: none;
+          counter-reset: list;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          width: max-content;
+      }
+      .list-counter-square>li {
+          position: relative;
+          display: block;
+          height: 2rem;
+          line-height: 2rem;
+          margin-left: 2rem;
+          margin-bottom: .25rem;
+          padding-left: .5rem;
+          padding-right: .5rem;
+          color: #fff;
+          background: #6a89fb;
+          white-space: nowrap;
+      }
+      .list-counter-square>li:last-child {
+          margin-bottom: 0;
+      }
+      .list-counter-square>li::before {
+          content: counter(list);
+          counter-increment: list;
+          position: absolute;
+          left: -2rem;
+          top: 0;
+          bottom: 0;
+          width: 2rem;
+          line-height: 2rem;
+          text-align: center;
+          color: #fff;
+          background: #9cb0fc;
+      }
+  </style>
+</head>
+  <body>
+  <header class="header d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-light">
+    <%= link_to('TProj', home_path, {:class => "d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}) %>
 
-  <div class="col-md-8">
-    <% if @user.teams.any? %>
-      <h3>Teams (<%= @user.teams.count %>)</h3>
-      <ol class="teams">
-        <%= render @teams %>
-      </ol>
-    <% end %>
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><%= link_to('Home', home_path, {:class => "nav-link px-2 link-dark"})%></li>
+      <li><%= link_to('Profile', profile_path, {:class => "nav-link px-2 link-secondary"}) %></li>
+      <li><%= link_to('About', about_path, {:class => "nav-link px-2 link-dark"}) %></li>
+    </ul>
+
+    <div class="col-md-3 text-end ">
+      <% if !user_signed_in? %>
+        <div class="float-end px-2">
+          <%= button_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
+        </div>
+        <%= button_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
+      <% else %>
+        <span>Hello, <%= current_user.first_name %></span>
+        <div class="float-end px-4">
+          <%= button_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
+        </div>
+      <% end %>
+    </div>
+  </header>
+  <div class="container">
+    <% provide(:title, "#{@user.first_name} #{@user.last_name}") %>
+    <div>
+      <aside>
+        <section>
+          <h1>
+            <%= "#{@user.first_name} #{@user.last_name}" %>
+          </h1>
+        </section>
+      </aside>
+
+      <div>
+        <% if @user.teams.any? %>
+          <h3>Teams (<%= @user.teams.count %>)</h3>
+          <ol class="list-counter-square">
+            <%= render @teams %>
+          </ol>
+        <% end %>
+      </div>
+      <%= button_to('Create team', new_team_path,  { :class => 'btn btn-outline-primary me-2', method: :get}) %>
+
+    </div>
   </div>
-  <%= link_to 'Create team', new_team_path %>
-
-</div>
-
+  </body>
+</html>

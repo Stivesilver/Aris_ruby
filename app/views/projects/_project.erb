@@ -4,8 +4,8 @@
     <%= project.start_date%>
     <%= project.end_date%>
 
-    <%= link_to "Show", show_project_path(project) %>
-    <%= link_to "Edit", edit_project_path(project, :team_id => @team.id) %>
-    <%= link_to "Delete", delete_project_path(project, :team_id => @team.id, :current_team_id => @team.id), method: :delete %>
+    <%= link_to("Show", show_project_path(project), { :class => "link-light"}) %>
+    <%= link_to("Edit", edit_project_path(project, :team_id => @team.id), { :class => "link-light"}) %>
+    <%= link_to("Delete", delete_project_path(project, :team_id => @team.id, :current_team_id => @team.id), {method: :delete, :class => "link-light"}) %>
   </span>
 </li>

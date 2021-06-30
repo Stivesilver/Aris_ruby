@@ -1,8 +1,10 @@
 <li id="tasks-<%= task.id %>">
   <span class="name">
     <%= task.name%>
-    <%= link_to "Show", show_task_path(task, :project_id => @project.id) %>
-    <%= link_to "Edit", edit_task_path(task, :project_id => @project.id) %>
-    <%= link_to "Delete", delete_task_path(task, :project_id => @project.id), method: :delete %>
+    <%= task.start_date%>
+    <%= task.due_date%>
+    <%= link_to("Show", show_task_path(task, :project_id => @project.id), { :class => "link-light"}) %>
+    <%= link_to("Edit", edit_task_path(task, :project_id => @project.id), { :class => "link-light"}) %>
+    <%= link_to("Delete", delete_task_path(task, :project_id => @project.id), {method: :delete, :class => "link-light"}) %>
   </span>
 </li>

@@ -1,13 +1,13 @@
 <li id="teams-<%= team.id %>">
   <span class="name">
-    <%= team.name%>
-    <%= link_to "Show", show_team_path(team) %>
-    <%= link_to "Edit", edit_team_path(team) %>
+    <%= team.name %>
+    <%= link_to("Show", show_team_path(team), { :class => "link-light"}) %>
+    <%= link_to("Edit", edit_team_path(team),  { :class => "link-light"}) %>
     <% if !@project.blank? %>
-      <% @pr_id = @project.id%>
+      <%= link_to("Delete", delete_team_path(team, :user_id => current_user.id, :project_id => @project.id ), {method: :delete, :class => "link-light"}) %>
       <% else %>
-      <% @pr_id = ""%>
+      <%= link_to("Delete", delete_team_path(team, :user_id => current_user.id, :from => 'user'), {method: :delete, :class => "link-light"}) %>
     <% end %>
-    <%= link_to "Delete", delete_team_path(team, :user_id => current_user.id, :project_id => @pr_id ), method: :delete %>
+
   </span>
 </li>

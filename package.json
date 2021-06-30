@@ -1,5 +1,9 @@
 {
   "name": "Aris_ruby",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^5.0.2",
+    "jquery": "^3.6.0",
+    "popper.js": "^1.16.1"
+  }
 }
