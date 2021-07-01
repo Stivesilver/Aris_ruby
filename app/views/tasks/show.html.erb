@@ -55,13 +55,13 @@
       <div class="col-md-3 text-end ">
         <% if !user_signed_in? %>
           <div class="float-end px-2">
-            <%= button_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
+            <%= link_to('Login', new_user_session_path, { :class => 'btn btn-outline-primary me-2'}) %>
           </div>
-          <%= button_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
+          <%= link_to('Sign up', new_user_registration_path, { :class => 'btn btn-primary'}) %>
         <% else %>
           <span>Hello, <%= current_user.first_name %></span>
           <div class="float-end px-4">
-            <%= button_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
+            <%= link_to('Exit', destroy_user_session_path, { :method => :delete, :class => 'btn btn-outline-primary me-2'})%>
           </div>
         <% end %>
       </div>
